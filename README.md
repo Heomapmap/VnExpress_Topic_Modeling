@@ -32,6 +32,12 @@ VnExpress_Topic_Modeling/
 └── requirements.txt          # Danh sách thư viện
 ```
 
+**Hướng dẫn tải dự án:**
+   ```bash
+   git clone https://github.com/Heomapmap/VnExpress_Topic_Modeling.git
+   cd VnExpress_Topic_Modeling
+   ```
+
 **Hướng dẫn cài đặt và dọn dẹp môi trường:**
 1. Tạo môi trường ảo .venv và cài đặt thư viện:
    ```bash
@@ -50,8 +56,15 @@ VnExpress_Topic_Modeling/
 4. Nếu thiếu bộ phân giải HTML (lxml):
    ```bash
    pip install lxml
-   ```
+   ``` 
+   
 **Lưu ý:** Đảm bảo rằng bạn đã cài đặt tất cả các thư viện cần thiết trong `requirements.txt` để tránh lỗi khi chạy mã nguồn.
+
+**Cấu hình API:**
+Dự án sử dụng Groq Cloud API để tóm tắt bài báo. Để sử dụng tính năng này:
+1. Đăng ký lấy API Key tại [Groq Cloud Console](https://console.groq.com/).
+2. Tạo file `.env` tại thư mục gốc dự án.
+3. Copy nội dung từ `.env.example` sang `.env` và thay thế bằng Key của bạn.
 
 **Quy trình làm việc chính:**
 1. **Cào dữ liệu:** Sử dụng `scrape_rss.py` hoặc `scrape_web.py` trong thư mục `src/utils/` để thu thập bài báo từ VnExpress và lưu vào `data/raw/`.
@@ -63,15 +76,15 @@ VnExpress_Topic_Modeling/
 **Usage Examples:**
 1.  **Cào dữ liệu từ RSS feed:**
   ```bash
-  python src/utils/scrape_rss.py --output data/raw/rss_data.json
+  python src/utils/scrape_rss.py --output data/raw/data_rss.csv
   ```
 2.  **Làm sạch dữ liệu:**
   ```bash
-  python src/clean.py --input data/raw/rss_data.json --output data/processed/cleaned_data.json
+  python src/clean.py --input data/raw/data_rss.csv --output data/processed/clean_data.csv
   ```
 3.  **Huấn luyện mô hình LDA:**
   ```bash
-  python src/lda_train.py --input data/processed/cleaned_data.json --model_output models/lda/lda_model.model
+  python src/lda_train.py --input data/processed/clean_data.csv --model_output models/lda/lda_model.model
   ```
 4.  **Dự đoán chủ đề cho bài báo mới:**
   ```bash
@@ -79,13 +92,12 @@ VnExpress_Topic_Modeling/
   ```
 5.  **Trực quan hóa kết quả:**
   ```bash
-  python src/visualize.py --input data/processed/cleaned_data.json --output reports/figures/
+  python src/visualize.py --input data/processed/clean_data.csv --output reports/figures/
   ```
 
 **Lưu ý:**
 - Khi cào dữ liệu bằng `scrape_rss.py` dữ liệu thô lấy được sẽ sạch hơn nhưng giới hạn 60 bài/topic do hạn chế của RSS feed chỉ lưu các bài mới nhất.
 - Khi cào dữ liệu bằng `scrape_web.py` dữ liệu thô lấy được sẽ nhiều hơn nhưng cần tiền xử lý kỹ hơn.
-- Để chạy `predict_topic.py` bạn cần nhập api key groq của bạn vào `.env`.
 
 **Kết quả trực quan hóa:**
 - Biểu đồ hoạt động theo giờ (Hourly activity)
