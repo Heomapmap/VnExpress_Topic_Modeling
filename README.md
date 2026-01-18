@@ -83,8 +83,9 @@ VnExpress_Topic_Modeling/
   ```
 
 **Lưu ý:**
-- Khi cào dữu liệu bằng `scrape_rss.py` dữ liệu thô lấy được sẽ sạch hơn nhưng giới hạn 60 bài/topic do hạn chế của RSS feed chỉ lưu các bài mới nhất.
+- Khi cào dữ liệu bằng `scrape_rss.py` dữ liệu thô lấy được sẽ sạch hơn nhưng giới hạn 60 bài/topic do hạn chế của RSS feed chỉ lưu các bài mới nhất.
 - Khi cào dữ liệu bằng `scrape_web.py` dữ liệu thô lấy được sẽ nhiều hơn nhưng cần tiền xử lý kỹ hơn.
+- Để chạy `predict_topic.py` bạn cần nhập api key groq của bạn vào `.env`.
 
 **Kết quả trực quan hóa:**
 - Biểu đồ hoạt động theo giờ (Hourly activity)
