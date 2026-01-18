@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+.env
+.idea/
+
+# Dữ liệu
+data/raw/*
+data/processed/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+
+# Models
+models/lda/*
+!models/lda/.gitkeep
+
+# Reports
+reports/figures/*

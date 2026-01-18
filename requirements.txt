@@ -1,0 +1,13 @@
+requests
+pandas
+beautifulsoup4
+groq
+underthesea
+gensim
+matplotlib
+seaborn
+wordcloud
+feedparser
+lxml
+numpy
+tqdm
