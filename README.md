@@ -28,6 +28,9 @@ VnExpress_Topic_Modeling/
 │   ├── lda_train.py          # Huấn luyện mô hình LDA
 │   ├── predict_topic.py      # Dự đoán chủ đề cho bài báo mới
 │   └── visualize.py          # Vẽ biểu đồ và phân tích xu hướng
+├── .env                      # Cấu hình biến môi trường (API keys)
+├── .env.example              # Thử nghiệm cấu hình biến môi trường
+├── .gitignore                # Git ignore file
 ├── README.md                 # Hướng dẫn dự án
 └── requirements.txt          # Danh sách thư viện
 ```
