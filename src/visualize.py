@@ -43,6 +43,7 @@ def filter_by_time(df):
 def plot_topic_distribution(df):
     if df.empty: return
     plt.figure(figsize=(10, 6))
+    df['topic_name'] = df['topic_id']
     sns.countplot(data=df, x='topic_name', hue='topic_name', palette='viridis', legend=False)
     plt.title('PHÂN BỔ SỐ LƯỢNG BÀI BÁO THEO CHỦ ĐỀ', fontsize=14, fontweight='bold')
     plt.xticks(rotation=45)

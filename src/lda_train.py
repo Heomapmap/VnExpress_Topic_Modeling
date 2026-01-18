@@ -26,7 +26,7 @@ def run_lda_pipeline():
     texts = [str(text).split() for text in df["clean_text"]]
     dictionary = corpora.Dictionary(texts)
 
-    dictionary.filter_extremes(no_below=5, no_above=0.5)
+    dictionary.filter_extremes(no_below=5, no_above=0.3)
     corpus = [dictionary.doc2bow(text) for text in texts]
 
     print(f"Đang huấn luyện LDA...")
@@ -35,10 +35,10 @@ def run_lda_pipeline():
         id2word=dictionary,
         num_topics=num_topics,
         random_state=42,
-        passes=15,
+        passes=20,
         iterations=200,
-        alpha='auto',
-        eta='auto',
+        alpha=0.01,
+        eta=0.01,
         per_word_topics=True
     )
 
