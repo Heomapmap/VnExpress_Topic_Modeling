@@ -11,3 +11,4 @@ feedparser
 lxml
 numpy
 tqdm
+dotenv
