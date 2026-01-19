@@ -43,7 +43,6 @@ def run_lda_pipeline():
     )
 
     coherence_model_lda = CoherenceModel(model=lda_model, texts=texts, dictionary=dictionary, coherence='c_v')
-    coherence_lda = coherence_model_lda.get_coherence()
 
     lda_model.save(str(MODEL_DIR / "lda_model.model"))
     dictionary.save(str(MODEL_DIR / "id2word.dictionary"))
