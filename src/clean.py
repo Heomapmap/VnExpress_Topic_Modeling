@@ -50,6 +50,7 @@ if __name__ == "__main__":
     df = df.dropna(subset=["category", "title", "content"])
     df.drop_duplicates(subset=["title", "content"], inplace=True)
     df = df[df["content"].str.strip().str.len() > 20]
+
     df["full_text"] = df["title"].fillna("") + " " + df["description"].fillna("") + " " + df["content"]
 
     tqdm.pandas(desc="Đang làm sạch dữ liệu")

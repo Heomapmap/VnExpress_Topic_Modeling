@@ -1,6 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import time
 from wordcloud import WordCloud
 from pathlib import Path
 from gensim.models import LdaModel
@@ -43,8 +44,7 @@ def filter_by_time(df):
 def plot_topic_distribution(df):
     if df.empty: return
     plt.figure(figsize=(10, 6))
-    df['topic_name'] = df['topic_id']
-    sns.countplot(data=df, x='topic_name', hue='topic_name', palette='viridis', legend=False)
+    sns.countplot(data=df, x='topic_id', hue='topic_id', palette='viridis', legend=False)
     plt.title('PHÂN BỔ SỐ LƯỢNG BÀI BÁO THEO CHỦ ĐỀ', fontsize=14, fontweight='bold')
     plt.xticks(rotation=45)
     plt.tight_layout()
@@ -53,9 +53,8 @@ def plot_topic_distribution(df):
 
 
 def generate_wordclouds(lda_model, topic_mapping=None):
-    """Vẽ đám mây từ ngữ"""
     num_topics = lda_model.num_topics
-    cols = 2
+    cols = 4
     rows = (num_topics + 1) // 2
     fig, axes = plt.subplots(rows, cols, figsize=(15, rows * 5))
     axes = axes.flatten()
@@ -101,7 +100,6 @@ if __name__ == "__main__":
     else:
         df = pd.read_csv(INPUT_CSV)
 
-        # 1. Lọc thời gian trước
         df_filtered = filter_by_time(df)
 
         if df_filtered.empty:
@@ -111,13 +109,13 @@ if __name__ == "__main__":
             print(f"Đang xử lý {len(df_filtered)} bài báo...")
 
             print("\nVẽ biểu đồ phân bố chủ đề...")
-            time_sleep=2
+            time.sleep=2
             plot_topic_distribution(df_filtered)
 
             print("Tạo đám mây từ ngữ cho các chủ đề...")
-            time_sleep=2
+            time.sleep=2
             generate_wordclouds(lda_model)
 
             print("Vẽ biểu đồ hoạt động theo giờ đăng bài...")
-            time_sleep=2
+            time.sleep=2
             plot_hourly_activity(df_filtered)
