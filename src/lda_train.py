@@ -91,25 +91,3 @@ def run_lda_pipeline():
 
 if __name__ == "__main__":
     run_lda_pipeline()
-
-#Luồng xử lý thực thi đoạn code:
-#Bước 1: Xây dựng từ điển và kho dữ liệu:
-#   - Đọc dữ liệu đã làm sạch từ file CSV.
-#   - Tạo từ điển từ dữ liệu văn bản.
-#   - Lọc từ điển để loại bỏ các từ quá hiếm hoặc quá phổ biến.
-#   - Chuyển đổi văn bản thành định dạng túi từ (bag-of-words).
-#Bước 2: Huấn luyện mô hình LDA:
-#   - Thiết lập và huấn luyện mô hình LDA với các tham số đã định nghĩa.
-#   - Một số tham số quan trọng:
-#       + num_topics: Số lượng chủ đề cần tìm kiếm.
-#       + passes: Số lần lặp qua toàn bộ kho dữ liệu trong quá trình huấn luyện.
-#       + iterations: Số lần lặp cho mỗi tài liệu trong quá trình huấn luyện.
-#       + alpha và eta: Tham số siêu điều chỉnh ảnh hưởng đến phân phối chủ đề và từ.
-#   - Lưu mô hình và từ điển đã huấn luyện vào thư mục chỉ định.
-#Bước 3: Gán chủ đề cho từng tài liệu:
-#   - Xác định chủ đề chiếm ưu thế và độ tin cậy của nó cho mỗi tài liệu.
-#   - Lưu kết quả vào file CSV mới.
-#Bước 4: Đánh giá mô hình:
-#   - Tính toán độ mạch lạc (coherence) của mô hình.
-#   - Tính toán độ phức tạp (perplexity) của mô hình.
-#   - In báo cáo chi tiết về quá trình huấn luyện và kết quả đánh giá.
