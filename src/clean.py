@@ -1,8 +1,8 @@
 import pandas as pd
-import re
 from pathlib import Path
-from underthesea import word_tokenize
 from tqdm import tqdm
+
+from utils.common_utils import clean_text
 
 CURRENT_DIR = Path(__file__).resolve().parent
 BASE_DIR = CURRENT_DIR.parent if CURRENT_DIR.name == "src" else CURRENT_DIR.parent.parent
@@ -10,32 +10,6 @@ BASE_DIR = CURRENT_DIR.parent if CURRENT_DIR.name == "src" else CURRENT_DIR.pare
 INPUT_FILE = BASE_DIR / "data" / "raw" / "data_web.csv"
 OUTPUT_DIR = BASE_DIR / "data" / "processed"
 OUTPUT_FILE = OUTPUT_DIR / "clean_data.csv"
-
-STOPWORDS_FILE = BASE_DIR / "src" / "utils" / "vn_stopwords.txt"
-
-
-def load_stopwords(path):
-    if path.exists():
-        with open(path, "r", encoding="utf-8") as f:
-            return set(line.strip().replace(" ", "_") for line in f if line.strip())
-    else:
-        print(f"Cảnh báo: Không tìm thấy file stop words tại {path}")
-        return set()
-
-STOPWORDS = load_stopwords(STOPWORDS_FILE)
-
-def clean_text(text):
-    if not isinstance(text, str):
-        return ""
-
-    text = text.lower()
-    text = re.sub(r"http\S+|www\S+", "", text)
-    text = word_tokenize(text, format="text")
-    text = re.sub(r"[^\w\s]", " ", text)
-    text = re.sub(r"\d+", " ", text)
-    words = [w for w in text.split() if w not in STOPWORDS and len(w) > 1]
-    return " ".join(words)
-
 
 if __name__ == "__main__":
     if not INPUT_FILE.exists():
@@ -55,7 +29,7 @@ if __name__ == "__main__":
 
     tqdm.pandas(desc="Đang làm sạch dữ liệu")
 
-    df["clean_text"] = df["full_text"].progress_apply(clean_text)
+    df["clean_text"] = df["full_text"].progress_apply(lambda x: clean_text(x, return_list=False))
     df = df[df["clean_text"].str.len() > 10]
 
     df.to_csv(OUTPUT_FILE, index=False, encoding="utf-8-sig")

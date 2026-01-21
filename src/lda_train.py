@@ -1,7 +1,10 @@
 import pandas as pd
+import json
 from gensim import corpora
 from gensim.models import LdaModel, CoherenceModel
 from pathlib import Path
+
+from utils.common_utils import get_dominant_topic, get_topic_vector
 
 CURRENT_DIR = Path(__file__).resolve().parent
 BASE_DIR = CURRENT_DIR.parent if CURRENT_DIR.name == "src" else CURRENT_DIR.parent.parent
@@ -45,19 +48,26 @@ def run_lda_pipeline():
     lda_model.save(str(MODEL_DIR / "lda_model.model"))
     dictionary.save(str(MODEL_DIR / "id2word.dictionary"))
 
-    def get_dominant_topic_info(bow):
-        topics = lda_model.get_document_topics(bow)
-        dominant = sorted(topics, key=lambda x: x[1], reverse=True)[0]
-        return dominant[0], dominant[1]
+    vector_list = []
+    dominant_topics = []
+    confidences = []
 
-    results = [get_dominant_topic_info(bow) for bow in corpus]
-    df['topic_id'] = [res[0] for res in results]
-    df['topic_confidence'] = [res[1] for res in results]
+    for bow in corpus:
+        vec = [float(prob) for _, prob in lda_model.get_document_topics(bow, minimum_probability=0)]
+        vector_list.append(vec)
+
+        topic_id, confidence = get_dominant_topic(bow, lda_model)
+        dominant_topics.append(topic_id)
+
+        confidences.append(float(confidence))
+
+    df['topic_vector'] = [json.dumps(vec) for vec in vector_list]
+    df['topic_id'] = dominant_topics
+    df['topic_confidence'] = confidences
 
     df.to_csv(OUTPUT_CSV, index=False, encoding="utf-8-sig")
 
-
-    print("\nĐang tính toán chỉ số Coherence (có thể mất một chút thời gian)...")
+    print("Đang tính toán chỉ số Coherence (có thể mất một chút thời gian)...")
     coherence_model_lda = CoherenceModel(
         model=lda_model,
         texts=texts,

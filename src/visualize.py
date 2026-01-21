@@ -6,6 +6,8 @@ from wordcloud import WordCloud
 from pathlib import Path
 from gensim.models import LdaModel
 
+from utils.common_utils import filter_by_time
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 INPUT_CSV = BASE_DIR / "data" / "processed" / "lda_train.csv"
 MODEL_PATH = BASE_DIR / "models" / "lda" / "lda_model.model"
@@ -13,38 +15,12 @@ OUTPUT_DIR = BASE_DIR / "reports" / "figures"
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 
-def filter_by_time(df):
-    print("\n--- BỘ LỌC THỜI GIAN ---")
-    print("(Nhấn Enter để bỏ qua bộ lọc và xem toàn bộ dữ liệu)")
-
-    year_input = input("Nhập năm muốn xem: ").strip()
-    month_input = input("Nhập tháng muốn xem (1-12): ").strip()
-
-    df = df.copy()
-    df['publish_date'] = pd.to_datetime(df['publish_date'], errors='coerce')
-    df = df.dropna(subset=['publish_date'])
-
-    filtered_df = df
-
-    if year_input.isdigit():
-        filtered_df = filtered_df[filtered_df['publish_date'].dt.year == int(year_input)]
-        print(f"Đã lọc theo năm: {year_input}")
-    else:
-        print("Không lọc theo năm (Xem tất cả các năm)")
-
-    if month_input.isdigit():
-        filtered_df = filtered_df[filtered_df['publish_date'].dt.month == int(month_input)]
-        print(f"Đã lọc theo tháng: {month_input}")
-    else:
-        print("Không lọc theo tháng (Xem tất cả các tháng)")
-
-    return filtered_df
 
 
-def plot_topic_distribution(df):
-    if df.empty: return
+def plot_topic_distribution(df_data):
+    if df_data.empty: return
     plt.figure(figsize=(10, 6))
-    sns.countplot(data=df, x='topic_id', hue='topic_id', palette='viridis', legend=False)
+    sns.countplot(data=df_data, x='topic_id', hue='topic_id', palette='viridis', legend=False)
     plt.title('PHÂN BỔ SỐ LƯỢNG BÀI BÁO THEO CHỦ ĐỀ', fontsize=14, fontweight='bold')
     plt.xticks(rotation=45)
     plt.tight_layout()
@@ -52,15 +28,20 @@ def plot_topic_distribution(df):
     plt.show()
 
 
-def generate_wordclouds(lda_model, topic_mapping=None):
-    num_topics = lda_model.num_topics
+def generate_wordclouds(lda):
+    num_topics = lda.num_topics
     cols = 4
-    rows = (num_topics + 1) // 2
+    rows = (num_topics + cols - 1) // cols
     fig, axes = plt.subplots(rows, cols, figsize=(15, rows * 5))
-    axes = axes.flatten()
 
+    if num_topics > 1:
+        axes = axes.flatten()
+    else:
+        axes = [axes]
+
+    i = -1
     for i in range(num_topics):
-        topic_words = dict(lda_model.show_topic(i, topn=30))
+        topic_words = dict(lda.show_topic(i, topn=30))
         cloud = WordCloud(width=800, height=400, background_color='white', colormap='tab10').generate_from_frequencies(
             topic_words)
         axes[i].imshow(cloud, interpolation='bilinear')
@@ -77,18 +58,23 @@ def generate_wordclouds(lda_model, topic_mapping=None):
     plt.show()
 
 
-def plot_hourly_activity(df):
-    if df.empty: return
-    df_plot = df.copy()
+def plot_hourly_activity(data_df):
+    if data_df.empty:
+        print("Không có dữ liệu để vẽ biểu đồ giờ")
+        return
+
+    df_plot = data_df.copy()
 
     df_plot = df_plot.dropna(subset=['publish_hour'])
     df_plot['hour_only'] = df_plot['publish_hour'].str.split(':').str[0].astype(int)
 
     plt.figure(figsize=(12, 6))
     sns.countplot(data=df_plot, x='hour_only', color='skyblue')
+
     plt.title('THỜI ĐIỂM ĐĂNG BÀI TRONG NGÀY', fontsize=14, fontweight='bold')
     plt.xlabel('Giờ trong ngày (0h - 23h)')
     plt.grid(axis='y', alpha=0.3)
+
     plt.tight_layout()
     plt.savefig(OUTPUT_DIR / "hourly_activity.png")
     plt.show()

@@ -2,10 +2,9 @@ import gensim
 import csv
 import os
 from pathlib import Path
-from underthesea import word_tokenize
 import textwrap
 
-from utils.common_utils import scrape_article
+from utils.common_utils import scrape_article, clean_text
 from utils.summarize import get_ai_insight
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -13,27 +12,19 @@ MODEL_PATH = BASE_DIR / "models" / "lda" / "lda_model.model"
 DICT_PATH = BASE_DIR / "models" / "lda" / "id2word.dictionary"
 RESULT_FILE = BASE_DIR / "data" / "processed" / "results.csv"
 
-
 class TopicPredictor:
     def __init__(self):
         print("\n--- Đang tải Model & Dictionary ---")
         self.dictionary = gensim.corpora.Dictionary.load(str(DICT_PATH))
         self.lda_model = gensim.models.LdaModel.load(str(MODEL_PATH))
 
-    def clean_text(self, text):
-        # Tách từ tiếng Việt
-        tokens = word_tokenize(text.lower(), format="text").split()
-        return [t for t in tokens if t.isalnum() or "_" in t]
-
     def run_pipeline(self, url):
-        # 1. Scrape
         article = scrape_article(url)
         if not article or not article['content']:
             return None, (None, 0)
 
         raw_text = f"{article['title']} {article['description']} {article['content']}"
-        tokens = self.clean_text(raw_text)
-
+        tokens = clean_text(raw_text, return_list=True)
         bow = self.dictionary.doc2bow(tokens)
         topic_dist = self.lda_model.get_document_topics(bow)
 
