@@ -9,30 +9,32 @@ Dự án này nhằm mục đích cung cấp cái nhìn sâu sắc về các xu 
 
 ```Project Structure
 VnExpress_Topic_Modeling/
-├── data/                     # Lưu trữ dữ liệu
-│   ├── raw/                  # Dữ liệu thô vừa cào về
-│   └── processed/            # Dữ liệu sạch sau khi tiền xử lý
-├── models/                   # Lưu trữ mô hình LDA
-│   └── lda/                  # Các file model (.model, .state, .dictionary)
-├── reports/                  # Kết quả trực quan hóa
-│   └── figures/              # Các biểu đồ (Hourly activity, Topic distribution, Wordclouds)
-├── src/                      # Mã nguồn chính
-│   ├── utils/                # Công cụ bổ trợ (scrape.py, summarize.py)
-│   │   │── __init__.py       # Khởi tạo package utils
-│   │   │── common_utils.py   # Hàm tiện ích chung cho cào dữ liệu
-│   │   │── scrape_rss.py     # Cào dữ liệu từ RSS feed của VnExpress
-│   │   │── scrape_web.py     # Cào dữ liệu trực tiếp từ trang web
-│   │   │── summarize.py      # Tóm tắt bài báo bằng AI
-│   │   └── vn_stopwords.txt  # Danh sách từ dừng tiếng Việt
-│   ├── clean.py              # Tiền xử lý văn bản tiếng Việt
-│   ├── lda_train.py          # Huấn luyện mô hình LDA
-│   ├── predict_topic.py      # Dự đoán chủ đề cho bài báo mới
-│   └── visualize.py          # Vẽ biểu đồ và phân tích xu hướng
-├── .env                      # Cấu hình biến môi trường (API keys)
-├── .env.example              # Thử nghiệm cấu hình biến môi trường
-├── .gitignore                # Git ignore file
-├── README.md                 # Hướng dẫn dự án
-└── requirements.txt          # Danh sách thư viện
+├── data/                                  # Lưu trữ dữ liệu
+│   ├── raw/                               # Dữ liệu thô vừa cào về
+│   └── processed/                         # Dữ liệu sạch sau khi tiền xử lý
+├── models/                                # Lưu trữ mô hình LDA
+│   └── lda/                               # Các file model (.model, .state, .dictionary)
+├── reports/                               # Kết quả trực quan hóa
+│   └── figures/                           # Các biểu đồ (Hourly activity, Topic distribution, Wordclouds)
+├── src/                                   # Mã nguồn chính
+│   ├── utils/                             # Công cụ bổ trợ (scrape.py, summarize.py)
+│   │   │── __init__.py                    # Khởi tạo package utils
+│   │   │── common_utils.py                # Hàm tiện ích chung
+│   │   │── scrape_rss.py                  # Cào dữ liệu từ RSS feed của VnExpress
+│   │   │── scrape_rss_multithreaded.py    # Cào dữ liệu từ RSS feed xử lý chạy đa luồng
+│   │   │── scrape_web.py                  # Cào dữ liệu trực tiếp từ trang web
+│   │   │── summarize.py                   # Tóm tắt bài báo bằng AI
+│   │   └── vn_stopwords.txt               # Danh sách từ dừng tiếng Việt
+│   ├── clean.py                           # Tiền xử lý văn bản tiếng Việt
+│   ├── lda_train.py                       # Huấn luyện mô hình LDA
+│   ├── predict_topic.py                   # Dự đoán chủ đề cho bài báo mới
+│   ├── recommend.py                       # Đề xuất các bài báo tương tự
+│   └── visualize.py                       # Vẽ biểu đồ và phân tích xu hướng
+├── .env                                   # Cấu hình biến môi trường (API keys)
+├── .env.example                           # Thử nghiệm cấu hình biến môi trường
+├── .gitignore                             # Git ignore file
+├── README.md                              # Hướng dẫn dự án
+└── requirements.txt                       # Danh sách thư viện
 ```
 
 **Hướng dẫn tải dự án:**
