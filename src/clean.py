@@ -27,9 +27,13 @@ if __name__ == "__main__":
 
     df["full_text"] = df["title"].fillna("") + " " + df["description"].fillna("") + " " + df["content"]
 
-    tqdm.pandas(desc="Đang làm sạch dữ liệu")
+    print("\nĐang bắt đầu làm sạch văn bản...")
+    clean_texts = []
 
-    df["clean_text"] = df["full_text"].progress_apply(lambda x: clean_text(x, return_list=False))
+    for text in tqdm(df["full_text"], desc="Tiến trình làm sạch"):
+        clean_texts.append(clean_text(text, return_list=False))
+
+    df["clean_text"] = clean_texts
     df = df[df["clean_text"].str.len() > 10]
 
     df.to_csv(OUTPUT_FILE, index=False, encoding="utf-8-sig")
