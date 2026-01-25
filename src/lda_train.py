@@ -4,7 +4,7 @@ from gensim import corpora
 from gensim.models import LdaModel, CoherenceModel
 from pathlib import Path
 
-from utils.common_utils import get_dominant_topic, get_topic_vector
+from utils.common_utils import get_dominant_topic
 
 CURRENT_DIR = Path(__file__).resolve().parent
 BASE_DIR = CURRENT_DIR.parent if CURRENT_DIR.name == "src" else CURRENT_DIR.parent.parent
@@ -23,13 +23,15 @@ def run_lda_pipeline():
     df = pd.read_csv(INPUT_FILE)
     df = df.dropna(subset=['clean_text', 'category'])
 
-    num_topics = len(df['category'].unique())
+    num_catergories = len(df['category'].unique())
+    num_topics = num_catergories * 2
+
     print(f"Hệ thống sẽ tìm kiếm {num_topics} chủ đề dựa trên dữ liệu...")
 
     texts = [str(text).split() for text in df["clean_text"]]
     dictionary = corpora.Dictionary(texts)
 
-    dictionary.filter_extremes(no_below=5, no_above=0.3)
+    dictionary.filter_extremes(no_below=5, no_above=0.2)
     corpus = [dictionary.doc2bow(text) for text in texts]
 
     print(f"Đang huấn luyện LDA...")
@@ -38,10 +40,10 @@ def run_lda_pipeline():
         id2word=dictionary,
         num_topics=num_topics,
         random_state=42,
-        passes=20,
+        passes=30,
         iterations=200,
-        alpha=0.01,
-        eta=0.01,
+        alpha='auto',
+        eta='auto',
         per_word_topics=True
     )
 
@@ -53,12 +55,13 @@ def run_lda_pipeline():
     confidences = []
 
     for bow in corpus:
-        vec = [float(prob) for _, prob in lda_model.get_document_topics(bow, minimum_probability=0)]
+        vec = [0.0] * num_topics
+        for t_id, prob in lda_model.get_document_topics(bow, minimum_probability=0):
+            vec[t_id] = float(prob)
         vector_list.append(vec)
 
         topic_id, confidence = get_dominant_topic(bow, lda_model)
         dominant_topics.append(topic_id)
-
         confidences.append(float(confidence))
 
     df['topic_vector'] = [json.dumps(vec) for vec in vector_list]

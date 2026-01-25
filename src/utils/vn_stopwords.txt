@@ -1,179 +1,20 @@
-# --- Từ nối và từ đệm ---
-là
-của
-và
-các
-những
-được
-cho
-trong
-có
-với
-đã
-này
-khi
-mà
-tại
-về
-đến
-theo
-như
-nhưng
-tuy
-bởi
-vì
-cùng
-hoặc
-nếu
-thì
-vậy
-cho_nên
-như_vậy
-thế_nào
-tại_sao
-làm_sao
+# --- Từ nối, từ đệm và đại từ ---
+là, của, và, các, những, được, cho, trong, có, với, đã, này, khi, mà, tại, về, đến, theo, như, nhưng, tuy, bởi, vì, cùng, hoặc, nều, thì, vậy, cho_nên, như_vậy, thế_nào, tại_sao, làm_sao, gì, đâu, đó, kia, nấy, cơ, hèn_chi, thành_ra, dù_sao, kể_cả, thay_vì
 
 # --- Chỉ thời gian và số lượng ---
-ngày
-tháng
-năm
-hôm_nay
-hôm_qua
-hôm_kia
-trước
-sau
-vừa
-mới
-sẽ
-đang
-nhiều
-ít
-một
-hai
-ba
-bốn
-năm
-sáu
-bảy
-tám
-chín
-mười
-vài
-mọi
-mỗi
-tất_cả
-hết
-luôn
-thường
-thường_xuyên
-lúc
-giờ
-phút
-giây
+ngày, tháng, năm, hôm_nay, hôm_qua, hôm_kia, trước, sau, vừa, mới, sẽ, đang, nhiều, ít, một, hai, ba, bốn, năm, sáu, bảy, tám, chín, mười, vài, mọi, mỗi, tất_cả, hết, luôn, thường, thường_xuyên, lúc, giờ, phút, giây, khoảng, gần, trên, dưới, hơn, độ, lần, lượt, đầu, giữa, cuối, sớm, muộn, liên_tục, thỉnh_thoảng, đôi_khi
 
 # --- Động từ và trạng thái chung ---
-cho_biết
-nói
-cho_rằng
-nêu
-cần
-phải
-muốn
-biết
-thấy
-làm
-ra
-lên
-đi
-đến
-lại
-vẫn
-cũng
-hơn
-nhất
-rất
-quá
-khá
-cực_kỳ
-hoàn_toàn
-chỉ
-không
-chưa
-chẳng
-đừng
-nên
-giúp
-mang
-lại
+cho_biết, nói, cho_rằng, nêu, cần, phải, muốn, biết, thấy, làm, ra, lên, đi, đến, lại, vẫn, cũng, hơn, nhất, rất, quá, khá, cực_kỳ, hoàn_toàn, chỉ, không, chưa, chẳng, đừng, nên, giúp, mang, lại, xem, nhìn, đặt, mang, lấy, đưa, dùng, sử_dụng, thực_hiện, xảy_ra, bắt_đầu, kết_thúc, tiếp_tục, tăng, giảm, duy_trì
 
 # --- Đặc thù báo chí và xưng hô ---
-việc
-sự
-cái
-chiếc
-tòa_soạn
-phóng_viên
-tin
-bài
-ảnh
-video
-theo_đó
-đồng_thời
-ngoài_ra
-cụ_thể
-hiện_nay
-tuy_nhiên
-tổng_hợp
-ông
-bà
-anh
-chị
-em
-họ
-chúng_tôi
-chúng_ta
-vne
-vnexpress
-vietnamnet
-dân_trí
-tintuconline
+việc, sự, cái, chiếc, tòa_soạn, phóng_viên, tin, bài, ảnh, video, theo_đó, đồng_thời, ngoài_ra, cụ_thể, hiện_nay, tuy_nhiên, tổng_hợp, ông, bà, cha, mẹ, cô, dì, chú, bác, anh, chị, em, họ, con, tôi, ta, chúng_tôi, chúng_ta, vne, vnexpress, vietnamnet, dân_trí, tintuconline, đại_diện, cán_bộ, lãnh_đạo, người, nhân_viên, phía, bên, nhóm, cá_nhân, tổ_chức
 
-# --- Địa chỉ và tên riêng chung ---
-hà_nội
-tp_hcm
-tp_hồ_chí_minh
-sài_gòn
-đà_nẵng
-thành_phố
-quận
-huyện
-thị_xã
-đường
-phố
-xã
-thôn
-tỉnh
-miền
-quốc_gia
-việt_nam
+# --- Địa giới và đơn vị đo lường ---
+hà_nội, tp_hcm, tp_hồ_chí_minh, sài_gòn, đà_nẵng, thành_phố, quận, huyện, thị_xã, đường, phố, xã, thôn, tỉnh, miền, quốc_gia, việt_nam, khu_vực, địa_phương, mét, km, kg, lít, đồng, usd, phần_trăm, tỷ, triệu, ngàn, nghìn, lạng, tạ, tấn, căn, hộ, tòa_nhà
 
-# --- Các từ cảm thán và thừa thãi ---
-vâng
-dạ
-ừ
-ờ
-à
-nè
-nhé
-chứ
-ấy
-nữa
-thôi
-đấy
-rồi
-nhỉ
-chăng
-đâu
-đó
-kia
-nào
+# --- Các từ cảm thán và bổ ngữ thừa ---
+vâng, dạ, ừ, ờ, à, nè, nhé, chứ, ấy, nữa, thôi, đấy, rồi, nhỉ, chăng, đâu, đó, kia, nào, thực_sự, hình_như, dường_như, có_lẽ, có_thể, chắc_chắn, dẫu, dẫu_sao, thôi_nào, ồ, ha, haiz, trời_ơi
+
+# --- Các từ tiếng anh vô nghĩa ---
+new, real

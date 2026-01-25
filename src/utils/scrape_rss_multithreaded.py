@@ -10,9 +10,9 @@ RSS_BASE_URL = "https://vnexpress.net/rss"
 
 slugs = [
     "thoi-su","the-gioi","kinh-doanh","giao-duc","the-thao",
-    "giai-tri","phap-luat","suc-khoe","doi-song","du-lich",
-    "khoa-hoc-cong-nghe","oto-xe-may","y-kien","tam-su",
-    "thu-gian","bat-dong-san"
+#    "giai-tri","phap-luat","suc-khoe","doi-song","du-lich",
+#    "khoa-hoc-cong-nghe","oto-xe-may","y-kien","tam-su",
+#    "thu-gian","bat-dong-san"
 ]
 
 CATEGORIES = {s.replace("-", "_"): f"{RSS_BASE_URL}/{s}.rss" for s in slugs}
@@ -41,14 +41,14 @@ def process_article(category, link):
 
 if __name__ == "__main__":
     data = []
-    LIMIT_PER_CATEGORY = 3
+    LIMIT_PER_CATEGORY = 100
     MAX_WORKERS = 10
 
     category_list = list(CATEGORIES.items())
     total_categories = len(category_list)
 
     for i, (category, category_url) in enumerate(CATEGORIES.items()):
-        print(f"\n{'=' * 10} CATEGORY {i}/{total_categories}: {category.upper()} {'=' * 10}")
+        print(f"\n{'=' * 10} CATEGORY {i+1}/{total_categories}: {category.upper()} {'=' * 10}")
         links = get_article_links_from_rss(category_url, limit=LIMIT_PER_CATEGORY)
         print(f"Found {len(links)} articles")
 
@@ -67,7 +67,7 @@ if __name__ == "__main__":
         df = pd.DataFrame(data)
 
         BASE_DIR = Path(__file__).resolve().parent.parent.parent
-        RAW_PATH = BASE_DIR / "data" / "raw" / "data_rss.csv"
+        RAW_PATH = BASE_DIR / "data" / "raw" / "data_rss1.csv"
         RAW_PATH.parent.mkdir(parents=True, exist_ok=True)
 
         df.to_csv(

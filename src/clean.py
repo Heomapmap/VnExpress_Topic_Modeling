@@ -30,8 +30,10 @@ if __name__ == "__main__":
     print("\nĐang bắt đầu làm sạch văn bản...")
     clean_texts = []
 
-    for text in tqdm(df["full_text"], desc="Tiến trình làm sạch"):
-        clean_texts.append(clean_text(text, return_list=False))
+    with tqdm(total=len(df), desc="Tiến trình làm sạch", unit=" bài") as pbar:
+        for text in df["full_text"]:
+            clean_texts.append(clean_text(text, return_list=False))
+            pbar.update(1)
 
     df["clean_text"] = clean_texts
     df = df[df["clean_text"].str.len() > 10]

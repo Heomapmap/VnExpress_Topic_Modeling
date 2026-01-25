@@ -14,9 +14,6 @@ MODEL_PATH = BASE_DIR / "models" / "lda" / "lda_model.model"
 OUTPUT_DIR = BASE_DIR / "reports" / "figures"
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
-
-
-
 def plot_topic_distribution(df_data):
     if df_data.empty: return
     plt.figure(figsize=(10, 6))
@@ -95,13 +92,13 @@ if __name__ == "__main__":
             print(f"Đang xử lý {len(df_filtered)} bài báo...")
 
             print("\nVẽ biểu đồ phân bố chủ đề...")
-            time.sleep=2
+            time.sleep(2)
             plot_topic_distribution(df_filtered)
 
             print("Tạo đám mây từ ngữ cho các chủ đề...")
-            time.sleep=2
+            time.sleep(2)
             generate_wordclouds(lda_model)
 
             print("Vẽ biểu đồ hoạt động theo giờ đăng bài...")
-            time.sleep=2
+            time.sleep(2)
             plot_hourly_activity(df_filtered)

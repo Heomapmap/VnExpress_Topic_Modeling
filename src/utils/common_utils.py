@@ -68,9 +68,15 @@ def process_datetime(date_str):
 
 #Hàm đọc file 'vn_stopwords.txt'
 def load_stopwords(path):
+    stopwords = set()
     if path.exists():
         with open(path, "r", encoding="utf-8") as f:
-            return set(line.strip().replace(" ", "_") for line in f if line.strip())
+            for line in f:
+                line = line.strip()
+                if not line or line.startswith("#"): continue
+                parts = [p.strip().replace(" ", "_") for p in line.split(",")]
+                stopwords.update(p for p in parts if p)
+        return stopwords
     else:
         print(f"Cảnh báo: Không tìm thấy file stop words tại {path}")
         return set()
